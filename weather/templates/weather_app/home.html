@@ -1,0 +1,68 @@
+{% load static %}
+{% load date_formatting %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Weather Details</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        {# <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> #}
+        <!-- Custom styles for this template -->
+        {# <link href="{% static 'css/narrow-jumbotron.css' %}" rel="stylesheet"> #}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/plugin.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/site_one.css'%}">
+    </head>
+    <body>
+        <div class="container">
+            <header class="header clearfix">
+                <h3 class="text-muted">weather</h3>
+                <small>Last Updated: {{weather_obj.last_updated}}</small>
+                <a href="{% url 'update_weather'%}">update</a>
+            </header>
+            <main role="main">
+                <div class="jumbotron">
+                    <img id="myImg" src="http://imd.gov.in/section/dwr/img/caz_chn.gif" alt="IMD - Weather, Chennai">
+                    <p style="white-space: pre-line;font-size: 0.8rem;" >
+                        Current UTC Time : {% now "H:i" %}
+                    </p>
+                </div>
+                <div class="row marketing">
+                    <div id="ff_post">
+                        {% for each_data in data.data %}        
+                            <div>                            
+                                <h3>{{each_data.story|default:"Tamil Nadu Weatherman"}}</h3>
+                                <small>{% get_formatted_datetime each_data.created_time %}</small>
+
+                                <p>{{each_data.message|safe}}</p>                            
+                            </div>
+                            <hr>
+                        {% endfor %}    
+
+                        {# <a href="{{data.paging.previous}}">PREVIOUS</a> #}
+                        {# <a href="{{data.paging.next}}">NEXT</a> #}
+
+                    </div>
+
+                    <div id="fb_post"></div>
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+            </main>
+            <footer class="footer">
+                <p>&copy; BK {% now "Y" %}</p>
+            </footer>
+        </div>
+        {# <script src="{% static 'js/jquery-3.2.1.min.js' %}" ></script> #}
+        {# <script src="{% static 'js/popper.min.js' %}"></script> #}
+        {# <script src="{% static 'js/bootstrap.min.js' %}"></script> #}
+        <script src="{% static 'js/plugin.js' %}"></script>
+        <script src="{% static 'js/site_one.js' %}"></script>
+    </body>
+</html>
+
