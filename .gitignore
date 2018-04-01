@@ -1,0 +1,6 @@
+.idea
+*.py[co]
+*.egg-info
+*.html~
+db
+media

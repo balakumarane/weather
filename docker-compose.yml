@@ -1,0 +1,16 @@
+version: '2'  
+services: 
+  web:
+    build: .
+    container_name: dg01
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && . start.sh"
+    depends_on:
+      - db
+    # volumes:
+    #   - ./src:/src
+    expose:
+      - "8000"
+
+  db:
+    image: postgres:latest
+    container_name: ps01

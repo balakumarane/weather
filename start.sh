@@ -2,7 +2,11 @@
 
 # Start Gunicorn processes
 echo Starting Gunicorn.
-gunicorn weather.wsgi:application \
+python manage.py migrate
+echo ....
+exec gunicorn weather.wsgi:application \
 	            --bind 0.0.0.0:8000 \
-		                --workers 3
+                --workers 1
+# --log-file /tmp/gunicorn.log \
+# --log-level INFO 
 

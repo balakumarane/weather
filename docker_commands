@@ -1,0 +1,7 @@
+sudo docker start postgres_db
+sudo docker stop weather
+sudo docker build -t weather-app .
+docker rmi $(docker images --format '{{.ID}}' --filter=dangling=true)
+sudo docker run --net "weather_nw" --name "weather" -t -p 8000:8000 weather-app
+sudo docker start weather
+
