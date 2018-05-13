@@ -46,4 +46,5 @@ class UpdateWeather(RedirectView):
     # url ='/'
 
     def get_redirect_url(self, *args, **kwargs):
+        update_to_db()
         return reverse('home')

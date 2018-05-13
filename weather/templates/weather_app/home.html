@@ -13,13 +13,14 @@
         {# <link href="{% static 'css/narrow-jumbotron.css' %}" rel="stylesheet"> #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/plugin.css'%}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/site_one.css'%}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     </head>
     <body>
         <div class="container">
             <header class="header clearfix">
                 <h3 class="text-muted">weather</h3>
                 <small>Last Updated: {{weather_obj.last_updated}}</small>
-                <a href="{% url 'update_weather'%}">update</a>
+                <a href="{% url 'update_weather'%}"><i class="fas fa-redo-alt" style="color:black"></i></a>
             </header>
             <main role="main">
                 <div class="jumbotron">
@@ -29,7 +30,7 @@
                     </p>
                 </div>
                 <div class="row marketing">
-                    <div id="ff_post">
+                    <div id="ff_post" style="width: 100%;">
                         {% for each_data in data.data %}        
                             <div>                            
                                 <h3>{{each_data.story|default:"Tamil Nadu Weatherman"}}</h3>
