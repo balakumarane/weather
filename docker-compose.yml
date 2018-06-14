@@ -1,16 +1,26 @@
-version: '2'  
-services: 
-  web:
-    build: .
-    container_name: dg01
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && . start.sh"
-    depends_on:
-      - db
-    # volumes:
-    #   - ./src:/src
-    expose:
-      - "8000"
+version: '3.1'
 
-  db:
-    image: postgres:latest
-    container_name: ps01
+services:
+  postgres_db:
+    image: postgres:10.4
+    environment:
+      POSTGRES_USER: weather
+      POSTGRES_PASSWORD: weather
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  weather:
+    build: .
+    image: weather-app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres_db
+    volumes:
+      - .:/weather
+    command: /weather/start_local.sh
+    stdin_open: true
+    tty: true
+
+volumes:
+  db-data:

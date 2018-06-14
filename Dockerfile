@@ -1,17 +1,30 @@
-# Dockerfile
+FROM ubuntu:18.04
 
-# FROM directive instructing base image to build upon
-FROM python:2-onbuild
 
-# SET Environment for production
-ENV DJANGO_SETTINGS_MODULE weather.production
 
-# COPY startup script into known file location in container
-COPY start.sh /start.sh
+RUN apt-get update && apt-get install -y git python-pip\
+    && rm -rf /var/lib/apt/lists/*  
 
-# EXPOSE port 8000 to allow communication to/from server
+        
+
 EXPOSE 8000
 
-# CMD specifcies the command to execute to start the server running.
-CMD ["/start.sh"]
-# done!
+
+
+RUN mkdir /weather
+
+
+
+WORKDIR /weather
+
+
+
+ADD . .
+
+
+
+ENV DJANGO_SETTINGS_MODULE weather.production
+
+
+
+RUN pip install -r requirements.txt
