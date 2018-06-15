@@ -16,11 +16,6 @@ services:
       - "8000:8000"
     depends_on:
       - postgres_db
-    volumes:
-      - .:/weather
-    command: /weather/start_local.sh
-    stdin_open: true
-    tty: true
-
+    command: /weather/start.sh
 volumes:
   db-data:
