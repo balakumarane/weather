@@ -16,6 +16,6 @@ services:
       - postgres_db
     deploy:
       replicas: 5
-
+    command: /weather/start.sh
 volumes:
   live-db-data:      
