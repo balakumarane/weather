@@ -13,6 +13,13 @@ services:
     tty: true
     depends_on:
       - postgres_db
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 60s
+      timeout: 30s
+      retries: 5   
+
   postgres_db:
     image: postgres:10.4
     environment:
