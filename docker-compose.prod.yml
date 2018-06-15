@@ -8,18 +8,24 @@ services:
       POSTGRES_PASSWORD: weather
     volumes:
       - live-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 30s
+      retries: 3      
   weather:
     image: 127.0.0.1:5000/weather-app
     ports:
       - "8000:8000"
     depends_on:
-      - postgres_db
+      postgres_db:
+        condition: service_healthy 
     deploy:
       replicas: 1
-    resources:
-      limits:
-        cpus: '0.50'
-        memory: 300M     
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 300M     
             
 volumes:
   live-db-data:      
