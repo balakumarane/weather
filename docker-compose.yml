@@ -1,6 +1,18 @@
 version: '3.1'
 
 services:
+  weather:
+    build: .
+    image: weather-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/weather
+    command: /weather/start_local.sh
+    stdin_open: true
+    tty: true
+    depends_on:
+      - postgres_db
   postgres_db:
     image: postgres:10.4
     environment:
@@ -12,20 +24,7 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 30s
       timeout: 30s
-      retries: 3
-  weather:
-    build: .
-    image: weather-app
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/weather
-    depends_on:
-      postgres_db:
-        condition: service_healthy       
-    command: /weather/start_local.sh
-    stdin_open: true
-    tty: true      
+      retries: 3   
 
 volumes:
   db-data:
