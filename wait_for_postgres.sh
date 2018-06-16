@@ -1,17 +1,17 @@
-#!/bin/sh
+#!/bin/bash
+# wait-for-postgres.sh
 
-postgres_host=$1
-postgres_port=$2
-shift 2
+set -e
+
+host="$1"
+shift
 cmd="$@"
 
-# wait for the postgres docker to be running
-while ! pg_isready -h $postgres_host -p $postgres_port -q -U postgres; do
+until PGPASSWORD=$POSTGRES_PASSWORD psql -h "$host" -U "postgres" -c '\q'; do
   >&2 echo "Postgres is unavailable - sleeping"
   sleep 1
 done
 
 >&2 echo "Postgres is up - executing command"
-
-# run the command
 exec $cmd
+

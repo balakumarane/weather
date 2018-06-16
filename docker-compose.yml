@@ -7,8 +7,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/weather
-    command: /weather/start_local.sh
+      - .:/weather    
     stdin_open: true
     tty: true
     depends_on:
@@ -18,7 +17,8 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 30s
       timeout: 30s
-      retries: 5   
+      retries: 5
+    command: ["/weather/wait_for_postgres.sh", "db:5432", "/weather/start_local.sh"]
   
   postgres_db:
     image: postgres:10.4
