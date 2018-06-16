@@ -19,7 +19,8 @@ services:
       interval: 30s
       timeout: 30s
       retries: 5   
-
+    entrypoint: /weather/wait-for-postgres.sh postgres 5432
+  
   postgres_db:
     image: postgres:10.4
     environment:
