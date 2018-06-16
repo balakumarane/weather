@@ -18,7 +18,7 @@ services:
       interval: 30s
       timeout: 30s
       retries: 5
-    command: ["/weather/wait_for_postgres.sh", "db:5432", "/weather/start_local.sh"]
+    command: "/weather/start_local.sh"
   
   postgres_db:
     image: postgres:10.4
