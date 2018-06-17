@@ -38,7 +38,7 @@ class HomePage(TemplateView):
             ## update the db
             print "Updating ..."
             weather_obj = update_to_db()
-        context.update({'data': weather_obj.data,'weather_obj': weather_obj})
+        context.update({'data': weather_obj.data,'weather_obj': weather_obj, 'current_time': timezone.now()})
         return context
 
 class UpdateWeather(RedirectView):

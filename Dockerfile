@@ -11,8 +11,6 @@ WORKDIR /weather
 
 ADD . .
 
-ENV DJANGO_SETTINGS_MODULE weather.production
-
 RUN pip install -r requirements.txt
 
 CMD [ "/weather/start.sh" ]

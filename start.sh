@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 echo ">> Waiting for postgres to start"
 WAIT=0
 while ! nc -z postgres_db 5432; do
@@ -9,6 +9,8 @@ while ! nc -z postgres_db 5432; do
     exit 1
     fi
 done
+echo ">> Postgres started Successfully"
+
 # Start Gunicorn processes
 echo Starting Gunicorn.
 python manage.py migrate

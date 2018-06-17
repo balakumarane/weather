@@ -7,7 +7,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/weather    
+      - .:/weather
+    environment:
+      - DJANGO_SETTINGS_MODULE=weather.settings
     stdin_open: true
     tty: true
     depends_on:

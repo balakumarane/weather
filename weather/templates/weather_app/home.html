@@ -1,3 +1,4 @@
+{% load tz %}
 {% load static %}
 {% load date_formatting %}
 <!doctype html>
@@ -7,6 +8,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico'%}">
         <!-- Bootstrap CSS -->
         {# <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> #}
         <!-- Custom styles for this template -->
@@ -26,16 +28,15 @@
                 <div class="jumbotron">
                     <img id="myImg" src="http://imd.gov.in/section/dwr/img/caz_chn.gif" alt="IMD - Weather, Chennai">
                     <p style="white-space: pre-line;font-size: 0.8rem;" >
-                        Current UTC Time : {% now "H:i" %}
+                        Current UTC Time : {{current_time|utc|date:"H:i:s"}}
                     </p>
                 </div>
                 <div class="row marketing">
                     <div id="ff_post" style="width: 100%;">
                         {% for each_data in data.data %}        
                             <div>                            
-                                <h3>{{each_data.story|default:"Tamil Nadu Weatherman"}}</h3>
-                                <small>{% get_formatted_datetime each_data.created_time %}</small>
-
+                                {# <h3>{{each_data.story|default:"Tamil Nadu Weatherman"}}</h3> #}
+                                <h5>{% get_formatted_datetime each_data.created_time %}</h5>
                                 <p>{{each_data.message|safe}}</p>                            
                             </div>
                             <hr>

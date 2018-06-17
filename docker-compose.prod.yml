@@ -19,6 +19,8 @@ services:
       - "8000:8000"
     depends_on:
       - postgres_db
+    environment:
+      - DJANGO_SETTINGS_MODULE=weather.production      
     deploy:
       replicas: 1
       resources:

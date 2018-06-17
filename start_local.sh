@@ -9,5 +9,6 @@ while ! nc -z postgres_db 5432; do
     exit 1
     fi
 done
+echo ">> Postgres started Successfully"
 python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
