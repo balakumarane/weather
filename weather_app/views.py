@@ -41,6 +41,22 @@ class HomePage(TemplateView):
         context.update({'data': weather_obj.data,'weather_obj': weather_obj, 'current_time': timezone.now()})
         return context
 
+class WeatherPage(TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super(WeatherPage, self).get_context_data(**kwargs)
+        try:
+            weather_obj = WeatherInfo.objects.get(place='chennai')
+        except:
+            print "except"
+            weather_obj = update_to_db()
+        time_threshold = weather_obj.last_updated + timedelta(hours=1)
+        if timezone.now() > time_threshold:
+            ## update the db
+            print "Updating ..."
+            weather_obj = update_to_db()
+        context.update({'data': weather_obj.data,'weather_obj': weather_obj, 'current_time': timezone.now()})
+        return context        
+
 class UpdateWeather(RedirectView):
     # url = reverse('home')
     # url ='/'

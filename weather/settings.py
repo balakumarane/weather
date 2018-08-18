@@ -87,8 +87,8 @@ DATABASES = {
             'NAME': 'weather',
             'USER': 'weather',
             'PASSWORD': 'weather',
-            'HOST': 'postgres_db',
-            'PORT': '5432',
+            'HOST': '192.168.2.10',
+            'PORT': '5433',
         }
 }
 # DATABASES = {  
