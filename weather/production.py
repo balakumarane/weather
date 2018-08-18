@@ -1,6 +1,6 @@
 from .settings import *
 
-STATIC_URL = "https://rawgit.com/balakumarane/weather/master/weather_app/static/"
+STATIC_URL = "https://rawgit.com/balakumarane/weather/master/v2.0/static/"
 
 DATABASES = {
     'default': {
