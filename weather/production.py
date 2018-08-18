@@ -1,7 +1,7 @@
 from .settings import *
 
-STATIC_URL = "https://rawgit.com/balakumarane/weather/master/v2.0/static/"
-
+ STATIC_URL = "https://rawgit.com/balakumarane/weather/v2.0/weather_app/static/" 
+ 
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
