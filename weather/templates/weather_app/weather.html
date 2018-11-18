@@ -9,21 +9,27 @@
         <div class="row">
           <div class="col-lg first">
             <img id="myImg" src="http://imd.gov.in/section/dwr/img/caz_chn.gif" alt="IMD - Weather, Chennai">
-          </div>
+              <figcaption>  Current UTC Time : {{current_time|utc|date:"H:i:s"}}</figcaption>            
+          </div>                      
           <div class="col-lg second">
             <div class="txt">
               <div>
                 <small>Last Updated: {{weather_obj.last_updated}}</small>
                 <a href="{% url 'update_weather'%}"><i class="fas fa-redo-alt" style="color:black"></i></a>
                 <br>
-                <small>These posts are from facebook Page of <a target="_blank" href="https://www.facebook.com/tamilnaduweatherman/" >Tamilnadu Weatherman</a></small>
+                <small>These posts are from facebook Page of <a target="_blank" href="https://www.facebook.com/tamilnaduweatherman/" >Tamilnadu Weatherman</a> and <a target="_blank" href="https://www.facebook.com/MOCRains/" >Monsoon of Chennai</a> </small>
                 <hr>
               </div>                
               <div id="ff_post" style="width: 100%;" class="mt-3">
-                {% for each_data in data.data %}        
-                    <div>                            
-                        {# <h3>{{each_data.story|default:"Tamil Nadu Weatherman"}}</h3> #}
-                        <h5>{% get_formatted_datetime each_data.created_time %}</h5>
+                {% for each_data in data|dictsortreversed:"created_time" %}        
+                    <div> 
+                        {% if each_data.id|first in '9' %}
+                          <h3>Monsoon of Chennai</h3>
+                        {% else %}
+                          <h3>Tamil Nadu Weatherman</h3>
+                        {% endif %}
+                        <small>{% get_formatted_datetime each_data.created_time %}</small>
+                        
                         <p>{{each_data.message|safe}}</p>                            
                     </div>
                     <hr>
