@@ -142,3 +142,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 FACEBOOK_URL = "https://graph.facebook.com/1471936623033617/feed?access_token=780986788681337|ad36e56c035e56f9f1dc1a57946143f4&limit=5"
+
+FACEBOOK_URL2 = "https://graph.facebook.com/917997188248421/feed?access_token=780986788681337|ad36e56c035e56f9f1dc1a57946143f4&limit=5"

@@ -11,4 +11,4 @@ while ! nc -z postgres_db 5432; do
 done
 echo ">> Postgres started Successfully"
 python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
+python manage.py runserver 0.0.0.0:8002
