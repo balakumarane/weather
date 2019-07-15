@@ -40,12 +40,12 @@ class HomePage(TemplateView):
         try:
             weather_obj = WeatherInfo.objects.get(place='chennai')
         except:
-            print "except"
+            print("except")
             weather_obj = update_to_db()
         time_threshold = weather_obj.last_updated + timedelta(hours=1)
         if timezone.now() > time_threshold:
             ## update the db
-            print "Updating ..."
+            print("Updating ...")
             weather_obj = update_to_db()
         context.update({'data': weather_obj.data,'weather_obj': weather_obj, 'current_time': timezone.now()})
         return context
@@ -56,12 +56,12 @@ class WeatherPage(TemplateView):
         try:
             weather_obj = WeatherInfo.objects.get(place='chennai')
         except:
-            print "except"
+            print("except")
             weather_obj = update_to_db()
         time_threshold = weather_obj.last_updated + timedelta(hours=1)
         if timezone.now() > time_threshold:
             ## update the db
-            print "Updating ..."
+            print("Updating ...")
             weather_obj = update_to_db()
         context.update({'data': weather_obj.data,'weather_obj': weather_obj, 'current_time': timezone.now()})
         return context        
