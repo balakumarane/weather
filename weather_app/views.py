@@ -15,8 +15,8 @@ from weather_app.models import WeatherInfo
 def update_to_db():
     url = settings.FACEBOOK_URL
     url2 = settings.FACEBOOK_URL2
-    response = urllib.urlopen(url)
-    response2 = urllib.urlopen(url2)
+    response = urllib.request.urlopen(url)
+    response2 = urllib.request.urlopen(url2)
     if response.code == 200 or response2.code == 200:
         data = []
         # import pdb; pdb.set_trace()

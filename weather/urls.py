@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('weather_app.urls')),
+    url('', include('pwa.urls')),  # You MUST use an empty string as the URL prefix
 ]
