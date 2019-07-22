@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import urllib, json
+import json
+import urllib.request as urllib
+from urllib import request
+import os
 from datetime import timedelta
+from django.core.files import File
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, RedirectView
@@ -15,8 +19,18 @@ from weather_app.models import WeatherInfo
 def update_to_db():
     url = settings.FACEBOOK_URL
     url2 = settings.FACEBOOK_URL2
-    response = urllib.request.urlopen(url)
-    response2 = urllib.request.urlopen(url2)
+    response = urllib.urlopen(url)
+    response2 = urllib.urlopen(url2)
+    weather_obj, obj_status = WeatherInfo.objects.get_or_create(place='chennai')
+    try:
+        result = request.urlretrieve(settings.WEATHER_IMAGE_URL)
+        weather_obj.image.save(
+                    os.path.basename(settings.WEATHER_IMAGE_URL),
+                    File(open(result[0], 'rb'))
+                    )
+    except:
+        weather_obj.image=None
+    weather_obj.save()
     if response.code == 200 or response2.code == 200:
         data = []
         # import pdb; pdb.set_trace()
@@ -25,8 +39,7 @@ def update_to_db():
             data.extend(data1['data'])
         if response2.code == 200:
             data2  = (json.loads(response2.read()))
-            data.extend(data2['data'])
-        weather_obj, obj_status = WeatherInfo.objects.get_or_create(place='chennai')
+            data.extend(data2['data'])        
         weather_obj.data = data
         weather_obj.save()
         return weather_obj

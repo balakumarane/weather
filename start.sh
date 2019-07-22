@@ -25,6 +25,6 @@ tail -n 0 -f /code/logs/gunicorn*.log &
 exec gunicorn weather.wsgi:application \
 	            --bind 0.0.0.0:8000 \
                 --workers 1\
-                --log-level=info \
+                --log-level=debug \
                 --log-file=/code/logs/gunicorn.log \
                 --access-logfile=/code/logs/gunicorn-access.log \

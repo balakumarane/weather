@@ -166,7 +166,7 @@ PWA_APP_ICONS = [
 ]
 PWA_APP_SPLASH_SCREEN = [
     {
-        'src': STATIC_URL+'/static/images/bk_192.png',
+        'src': STATIC_URL+'images/bk_192.png',
         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     }
 ]
@@ -175,3 +175,11 @@ PWA_APP_LANG = 'en-US'
 
 # PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'weather_app/static/js/', 'serviceworker.js')
 # print(PWA_SERVICE_WORKER_PATH)
+
+WEATHER_IMAGE_URL = 'http://imd.gov.in/section/dwr/img/caz_chn.gif'
+# WEATHER_IMAGE_URL = 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+print(MEDIA_ROOT)

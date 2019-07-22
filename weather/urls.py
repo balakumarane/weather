@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('weather_app.urls')),
     url('', include('pwa.urls')),  # You MUST use an empty string as the URL prefix
-]
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+print(urlpatterns)
