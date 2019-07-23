@@ -8,8 +8,8 @@
     <div class="container-fluid">
         <div class="row">
           <div class="col-lg first">
-            <img id="myImg" {% if weather_obj.image %}src="{{weather_obj.image.url}}" {% else %}src="http://imd.gov.in/section/dwr/img/caz_chn.gif" {% endif %} alt="IMD - Weather, Chennai">
-              <figcaption>  Current UTC Time : {{current_time|utc|date:"H:i:s"}}</figcaption>            
+            <img id="myImg" {% if weather_obj.image %}src="{{weather_obj.image.url}}" {% else %}src="" {% endif %} alt="IMD - Weather, Chennai">
+            <figcaption>  Current UTC Time : {{current_time|utc|date:"H:i:s"}}</figcaption>            
           </div>                      
           <div class="col-lg second">
             <div class="txt">

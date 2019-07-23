@@ -173,7 +173,7 @@ PWA_APP_SPLASH_SCREEN = [
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
 
-# PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'weather_app/static/js/', 'serviceworker.js')
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'weather_app/static/js/', 'serviceworker.js')
 # print(PWA_SERVICE_WORKER_PATH)
 
 WEATHER_IMAGE_URL = 'http://imd.gov.in/section/dwr/img/caz_chn.gif'
