@@ -19,8 +19,6 @@ from weather_app.models import WeatherInfo
 def update_to_db():
     url = settings.FACEBOOK_URL
     url2 = settings.FACEBOOK_URL2
-    response = urllib.urlopen(url)
-    response2 = urllib.urlopen(url2)
     weather_obj, obj_status = WeatherInfo.objects.get_or_create(place='chennai')
     try:
         result = request.urlretrieve(settings.WEATHER_IMAGE_URL)
@@ -28,23 +26,31 @@ def update_to_db():
                     os.path.basename(settings.WEATHER_IMAGE_URL),
                     File(open(result[0], 'rb'))
                     )
+        weather_obj.save()                   
+        print("Image Update -- SUCCESS !!!")
     except:
-        weather_obj.image=None
-    weather_obj.save()
-    if response.code == 200 or response2.code == 200:
-        data = []
-        # import pdb; pdb.set_trace()
-        if response.code == 200:
-            data1  = (json.loads(response.read()))
-            data.extend(data1['data'])
-        if response2.code == 200:
-            data2  = (json.loads(response2.read()))
-            data.extend(data2['data'])        
-        weather_obj.data = data
-        weather_obj.save()
-        return weather_obj
-    else:
-        return False
+        pass
+
+    try:
+        response = urllib.urlopen(url)
+        response2 = urllib.urlopen(url2)
+        if response.code == 200 or response2.code == 200:
+            data = []
+            # import pdb; pdb.set_trace()
+            if response.code == 200:
+                data1  = (json.loads(response.read()))
+                data.extend(data1['data'])
+            if response2.code == 200:
+                data2  = (json.loads(response2.read()))
+                data.extend(data2['data'])        
+            weather_obj.data = data
+            weather_obj.save()
+            print("FB Update -- SUCCESS !!!")
+            return weather_obj
+        else:
+            return False            
+    except:
+        print("Updating Failed!!!")
 
 
 class HomePage(TemplateView):

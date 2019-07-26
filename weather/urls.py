@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('weather_app.urls')),
     url('', include('pwa.urls')),  # You MUST use an empty string as the URL prefix
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
 
-print(urlpatterns)
+if settings.DEBUG:
+    urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
