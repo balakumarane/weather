@@ -91,4 +91,4 @@ class UpdateWeather(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         update_to_db()
-        return reverse('weather_page')
+        return reverse('weather_home_page')
