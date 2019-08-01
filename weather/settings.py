@@ -153,7 +153,7 @@ FACEBOOK_URL2 = "https://graph.facebook.com/917997188248421/feed?access_token=78
 
 
 #Django Progressive Web Application settings
-PWA_APP_NAME = 'BK App'
+PWA_APP_NAME = 'Weather'
 PWA_APP_DESCRIPTION = "Weather Details of chennai"
 PWA_APP_THEME_COLOR = '#0A0302'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
