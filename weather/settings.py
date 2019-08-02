@@ -152,35 +152,10 @@ FACEBOOK_URL2 = "https://graph.facebook.com/917997188248421/feed?access_token=78
 
 
 
-#Django Progressive Web Application settings
-PWA_APP_NAME = 'Weather'
-PWA_APP_DESCRIPTION = "Weather Details of chennai"
-PWA_APP_THEME_COLOR = '#0A0302'
-PWA_APP_BACKGROUND_COLOR = '#ffffff'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_ORIENTATION = 'any'
-PWA_APP_START_URL = '/'
-PWA_APP_ICONS = [
-    {
-        'src': STATIC_URL+'images/bk_192.png',
-        'sizes': '160x160'
-    }
-]
-PWA_APP_SPLASH_SCREEN = [
-    {
-        'src': STATIC_URL+'images/bk_192.png',
-        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-    }
-]
-PWA_APP_DIR = 'ltr'
-PWA_APP_LANG = 'en-US'
-
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'weather_app/static/js/', 'serviceworker.js')
-# print(PWA_SERVICE_WORKER_PATH)
-
 WEATHER_IMAGE_URL = 'http://imd.gov.in/section/dwr/img/caz_chn.gif'
 # WEATHER_IMAGE_URL = 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png'
+
+# from .pwa_settings import *
 
 # STATIC_URL = '/static/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
