@@ -1,3 +1,6 @@
+import os
+from .settings import BASE_DIR
+
 #Django Progressive Web Application settings
 PWA_APP_NAME = 'Weather'
 PWA_APP_DESCRIPTION = "Weather Details of chennai"
