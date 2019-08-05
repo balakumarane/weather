@@ -15,6 +15,9 @@ echo ">> Postgres started Successfully"
 echo Starting Gunicorn.
 python manage.py migrate
 echo ....
+echo Starting Collectstatic
+python manage.py collectstatic --noinput
+echo Completed Collectstatic
 # Prepare log files and start outputting logs to stdout
 mkdir -p /code/logs
 touch /code/logs/gunicorn.log

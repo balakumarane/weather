@@ -9,16 +9,19 @@ from datetime import timedelta
 from django.core.files import File
 
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, View
 from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
+from django.http import JsonResponse
 
 from weather_app.models import WeatherInfo
 # Create your views here.
 def update_to_db():
     url = settings.FACEBOOK_URL
     url2 = settings.FACEBOOK_URL2
+    image = False
+    fb = False
     weather_obj, obj_status = WeatherInfo.objects.get_or_create(place='chennai')
     try:
         result = request.urlretrieve(settings.WEATHER_IMAGE_URL)
@@ -26,9 +29,11 @@ def update_to_db():
                     os.path.basename(settings.WEATHER_IMAGE_URL),
                     File(open(result[0], 'rb'))
                     )
-        weather_obj.save()                   
+        weather_obj.save()
+        image = True
         print("Image Update -- SUCCESS !!!")
     except:
+        print("Image Update -- FAILED FAILED !!!")
         pass
 
     try:
@@ -46,11 +51,14 @@ def update_to_db():
             weather_obj.data = data
             weather_obj.save()
             print("FB Update -- SUCCESS !!!")
-            return weather_obj
+            fb = True
         else:
+            print("FB Update -- FAILED FAILED !!!")
             return False            
     except:
         print("Updating Failed!!!")
+
+    return weather_obj,{'FB': fb, 'IMAGE': image}
 
 
 class HomePage(TemplateView):
@@ -60,12 +68,12 @@ class HomePage(TemplateView):
             weather_obj = WeatherInfo.objects.get(place='chennai')
         except:
             print("except")
-            weather_obj = update_to_db()
+            weather_obj,status = update_to_db()
         time_threshold = weather_obj.last_updated + timedelta(hours=1)
         if timezone.now() > time_threshold:
             ## update the db
             print("Updating ...")
-            weather_obj = update_to_db()
+            weather_obj,status = update_to_db()
         context.update({'data': weather_obj.data,'weather_obj': weather_obj, 'current_time': timezone.now()})
         return context
 
@@ -92,3 +100,9 @@ class UpdateWeather(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         update_to_db()
         return reverse('weather_home_page')
+
+class UpdateWeatherApp(View):
+
+    def get(self, request, *args, **kwargs):
+        weather_obj,status = update_to_db()
+        return JsonResponse(status)

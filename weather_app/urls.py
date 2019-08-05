@@ -1,5 +1,5 @@
+from weather_app.views import HomePage, UpdateWeather, WeatherPage, UpdateWeatherApp
 from django.conf.urls import url
-from weather_app.views import HomePage, UpdateWeather, WeatherPage
 
 
 
@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^weather/$', WeatherPage.as_view(template_name="weather_app/weather.html"), name="weather_page"),
     url(r'^$', WeatherPage.as_view(template_name="weather_app/weather.html"), name="weather_home_page"),
     url(r'^update/$', UpdateWeather.as_view(), name='update_weather'),
+    url(r'^updateweather/$', UpdateWeatherApp.as_view(), name='update_weather_app'),
 ]
