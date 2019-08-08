@@ -18,10 +18,19 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
+from fcm_django.api.rest_framework import FCMDeviceViewSet, FCMDeviceAuthorizedViewSet
+from rest_framework.routers import DefaultRouter
+from rest_framework.documentation import include_docs_urls
+
+router = DefaultRouter()
+router.register(r'devices', FCMDeviceViewSet)
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('weather_app.urls')),
     url('', include('pwa.urls')),  # You MUST use an empty string as the URL prefix
+    url(r'^', include(router.urls)),
+
 ] 
 
 if settings.DEBUG:

@@ -39,14 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'pwa',
+    'minio_storage',
+    'fcm_django',
+    'rest_framework',
+    'corsheaders',
 
     'weather_app',
-    'minio_storage',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -138,7 +143,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -150,35 +154,14 @@ FACEBOOK_URL = "https://graph.facebook.com/1471936623033617/feed?access_token=78
 
 FACEBOOK_URL2 = "https://graph.facebook.com/917997188248421/feed?access_token=780986788681337|ad36e56c035e56f9f1dc1a57946143f4&limit=5"
 
-
-
 WEATHER_IMAGE_URL = 'http://imd.gov.in/section/dwr/img/caz_chn.gif'
-# WEATHER_IMAGE_URL = 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png'
 
-# from .pwa_settings import *
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": "AAAA3Awk11I:APA91bEUZWW14e7geAmugDuEJ4-aHHM1wiK6N3DGM8ivlS6_008vrFT9EYCkfNvdZ51ta0BXctOMe8axK1PuS8w-urBiUbq4m-MDmv_wu4I5AyQf9wxOxMJeuYcY5Qzm4imQgPhwstN0",
+}
 
-# STATIC_URL = '/static/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = 'http://localhost:4444/media/'
+# CORS_ORIGIN_WHITELIST = ['http://localhost:8001']
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = "/media/"
-# print(MEDIA_ROOT)
-
-# STATIC_URL = 'http://192.168.11.69:9000/static/'
-# STATIC_ROOT = '/weather-static/'
-# MEDIA_ROOT = '/weather-media/'
-# MEDIA_URL = 'http://192.168.11.69:9000/media/'
-
-# STATIC_ROOT = './static_files/'
-
-# DEFAULT_FILE_STORAGE="minio_storage.storage.MinioMediaStorage"
-# STATICFILES_STORAGE="minio_storage.storage.MinioStaticStorage"
-# MINIO_STORAGE_ENDPOINT="192.168.11.69:9000"
-# MINIO_STORAGE_ACCESS_KEY="balakumaran"
-# MINIO_STORAGE_SECRET_KEY="balakumaran"
-# MINIO_STORAGE_USE_HTTPS=False
-# MINIO_STORAGE_MEDIA_BUCKET_NAME="weather-media"
-# MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET=True
-# MINIO_STORAGE_STATIC_BUCKET_NAME = 'weather-static'
-# MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+from .pwa_settings import *

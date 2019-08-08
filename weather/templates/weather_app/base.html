@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {% progressive_web_app_meta %}
+    
     {% block title %}
     <title>Weather</title>
     {% endblock title %}
@@ -54,6 +54,106 @@
     {% block maincontent %}
     {% endblock maincontent %}
 
+    <div style="display: none" id="token"></div>
+    <div style="display: none" id="msg"></div>
+    <div style="display: none" id="notis"></div>
+    <div style="display: none" id="err"></div>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script>
+        MsgElem = document.getElementById("msg");
+        TokenElem = document.getElementById("token");
+        NotisElem = document.getElementById("notis");
+        ErrElem = document.getElementById("err");
+        // Initialize Firebase
+        // TODO: Replace with your project's customized code snippet
+        var config = {
+            apiKey: "AIzaSyDEIF13j_njdm74FldGdH3Fvta3dIPat2s",
+            authDomain: "weather-f20c2.firebaseapp.com",
+            databaseURL: "https://weather-f20c2.firebaseio.com",
+            projectId: "weather-f20c2",
+            storageBucket: "",
+            messagingSenderId: "945096546130",
+            appId: "1:945096546130:web:da4105e62fc7b327"
+        };
+        firebase.initializeApp(config);
+        const messaging = firebase.messaging();
+        // Initialize the service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/serviceworker.js', {
+            scope: '/'
+            }).then(function (registration) {
+                // Registration was successful
+                messaging.useServiceWorker(registration);
+                console.log('django-pwa: ServiceWorker registration successful with scope: ', registration.scope);
+            }, function (err) {
+                // registration failed :(
+                console.log('django-pwa: ServiceWorker registration failed: ', err);
+            });
+        }
+        
+        messaging
+            .requestPermission()
+            .then(function () {
+                MsgElem.innerHTML = "Notification permission granted." 
+                console.log("Notification permission granted.");
+                
+                // get the token in the form of promise
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                sendTokenToServer(token);
+                TokenElem.innerHTML = "token is : " + token
+            })
+            .catch(function (err) {
+                ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
+                console.log("Unable to get permission to notify.", err);
+            });
+        messaging.onMessage(function(payload) {
+            console.log("Message received. ", payload);
+            NotisElem.innerHTML = NotisElem.innerHTML + JSON.stringify(payload) 
+        });
+
+        function sendTokenToServer(currentToken) {
+            if (!isTokenSentToServer()) {
+            console.log('Sending token to server...');
+            // TODO(developer): Send the current token to your server.
+            fetch('http://localhost:4444/devices/', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                'registration_id': currentToken,
+                'type': 'web',
+                }),
+                credentials: "include",
+            }).then(function(response) {
+                console.log(response);
+            })
+            setTokenSentToServer(true);
+            } else {
+            console.log('Token already sent to server so won\'t send it again ' +
+                'unless it changes');
+            }
+
+        }
+
+        function isTokenSentToServer() {
+            if (window.localStorage.getItem('sentToServer') == 1) {
+                return true;
+            }
+            return false;
+        }
+
+        function setTokenSentToServer(sent) {
+            if (sent) {
+            window.localStorage.setItem('sentToServer', 1);
+            } else {
+            window.localStorage.setItem('sentToServer', 0);
+            }
+        }
+
+    </script>
 
     {% block JS %}
     <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
@@ -66,7 +166,7 @@
         $('.navbar').on('hidden.bs.collapse',function(){
             $('body').css('overflow','auto');
         });        
-    </script>
+    </script>    
     {% endblock JS %}
 </body>
 </html>

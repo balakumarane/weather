@@ -14,6 +14,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
 from django.http import JsonResponse
+from fcm_django.models import FCMDevice
 
 from weather_app.models import WeatherInfo
 # Create your views here.
@@ -47,7 +48,13 @@ def update_to_db():
                 data.extend(data1['data'])
             if response2.code == 200:
                 data2  = (json.loads(response2.read()))
-                data.extend(data2['data'])        
+                data.extend(data2['data'])
+            if data != weather_obj.data:
+                # FCM -- Send Push Notification
+                devices = FCMDevice.objects.all()
+                message = data[0]['message'][:100]
+                devices.send_message(title="Weather Update !!!", body=message, click_action= 'https://weather.zapto.org/')
+                        
             weather_obj.data = data
             weather_obj.save()
             print("FB Update -- SUCCESS !!!")
@@ -84,12 +91,12 @@ class WeatherPage(TemplateView):
             weather_obj = WeatherInfo.objects.get(place='chennai')
         except:
             print("except")
-            weather_obj = update_to_db()
+            weather_obj,status = update_to_db()
         time_threshold = weather_obj.last_updated + timedelta(hours=1)
         if timezone.now() > time_threshold:
             ## update the db
             print("Updating ...")
-            weather_obj = update_to_db()
+            weather_obj,status = update_to_db()
         context.update({'data': weather_obj.data,'weather_obj': weather_obj, 'current_time': timezone.now()})
         return context        
 
