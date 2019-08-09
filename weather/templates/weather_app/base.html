@@ -117,7 +117,7 @@
             if (!isTokenSentToServer()) {
             console.log('Sending token to server...');
             // TODO(developer): Send the current token to your server.
-            fetch('http://localhost:4444/devices/', {
+            fetch('https://weather.zapto.org/devices/', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
