@@ -85,33 +85,34 @@
                 // Registration was successful
                 messaging.useServiceWorker(registration);
                 console.log('django-pwa: ServiceWorker registration successful with scope: ', registration.scope);
+                messaging
+                    .requestPermission()
+                    .then(function () {
+                        MsgElem.innerHTML = "Notification permission granted." 
+                        console.log("Notification permission granted.");
+                        
+                        // get the token in the form of promise
+                        return messaging.getToken()
+                    })
+                    .then(function(token) {
+                        sendTokenToServer(token);
+                        TokenElem.innerHTML = "token is : " + token
+                    })
+                    .catch(function (err) {
+                        ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
+                        console.log("Unable to get permission to notify.", err);
+                    });
+                messaging.onMessage(function(payload) {
+                    console.log("Message received. ", payload);
+                    NotisElem.innerHTML = NotisElem.innerHTML + JSON.stringify(payload) 
+                });
             }, function (err) {
                 // registration failed :(
                 console.log('django-pwa: ServiceWorker registration failed: ', err);
             });
         }
         
-        messaging
-            .requestPermission()
-            .then(function () {
-                MsgElem.innerHTML = "Notification permission granted." 
-                console.log("Notification permission granted.");
-                
-                // get the token in the form of promise
-                return messaging.getToken()
-            })
-            .then(function(token) {
-                sendTokenToServer(token);
-                TokenElem.innerHTML = "token is : " + token
-            })
-            .catch(function (err) {
-                ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
-                console.log("Unable to get permission to notify.", err);
-            });
-        messaging.onMessage(function(payload) {
-            console.log("Message received. ", payload);
-            NotisElem.innerHTML = NotisElem.innerHTML + JSON.stringify(payload) 
-        });
+        
 
         function sendTokenToServer(currentToken) {
             if (!isTokenSentToServer()) {
