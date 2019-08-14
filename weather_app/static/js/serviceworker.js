@@ -1,4 +1,4 @@
-const VERSION = 'v2';
+const VERSION = 'v3';
 
 self.addEventListener('install', event => event.waitUntil(installServiceWorker()));
 
@@ -10,14 +10,17 @@ async function installServiceWorker() {
     const cache = await caches.open(VERSION);
 
     return cache.addAll([
-      'https://cdn.jsdelivr.net/gh/balakumarane/weather@vv2.0/weather_app/static/images/bk_192.png',
       'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
-      'https://cdn.jsdelivr.net/gh/balakumarane/weather@vv2.0/weather_app/static/css/bootstrap.min.css',
-      'https://cdn.jsdelivr.net/gh/balakumarane/weather@vv2.0/weather_app/static/css/main.css',
-      'https://cdn.jsdelivr.net/gh/balakumarane/weather@vv2.0/weather_app/static/images/bk_640.svg',
-      'https://cdn.jsdelivr.net/gh/balakumarane/weather@vv2.0/weather_app/static/js/jquery-3.3.1.slim.min.js',
-      'https://cdn.jsdelivr.net/gh/balakumarane/weather@vv2.0/weather_app/static/js/popper.min.js',
-      'https://cdn.jsdelivr.net/gh/balakumarane/weather@vv2.0/weather_app/static/js/bootstrap.min.js',
+      'https://bk.sytes.net/weather-static/css/bootstrap.min.css',
+      'https://bk.sytes.net/weather-static/css/main.css',
+      'https://bk.sytes.net/weather-static/images/bk_640.svg',
+      'https://www.gstatic.com/firebasejs/3.9.0/firebase.js',
+      'https://bk.sytes.net/weather-static/js/jquery-3.3.1.slim.min.js',
+      'https://bk.sytes.net/weather-static/js/popper.min.js',
+      'https://bk.sytes.net/weather-static/js/bootstrap.min.js',
+      'https://use.fontawesome.com/releases/v5.0.13/webfonts/fa-solid-900.woff2',
+      'https://weather.zapto.org/manifest.json',
+      'https://bk.sytes.net/weather-static/images/bk_160.png',
     ]);
 }
 

@@ -53,7 +53,7 @@ def update_to_db():
                 # FCM -- Send Push Notification
                 devices = FCMDevice.objects.all()
                 message = data[0]['message'][:100]
-                devices.send_message(title="Weather Update !!!", body=message, click_action= 'https://weather.zapto.org/')
+                devices.send_message(title="Weather Update !!!", body=message, click_action= 'https://weather.zapto.org/', icon='https://bk.sytes.net/weather-static/images/bk_192.png')
                         
             weather_obj.data = data
             weather_obj.save()
