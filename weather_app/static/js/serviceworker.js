@@ -14,7 +14,7 @@ async function installServiceWorker() {
       'https://bk.sytes.net/weather-static/css/bootstrap.min.css',
       'https://bk.sytes.net/weather-static/css/main.css',
       'https://bk.sytes.net/weather-static/images/bk_640.svg',
-      'https://www.gstatic.com/firebasejs/3.9.0/firebase.js',
+      'https://bk.sytes.net/weather-static/js/firebase.js',
       'https://bk.sytes.net/weather-static/js/jquery-3.3.1.slim.min.js',
       'https://bk.sytes.net/weather-static/js/popper.min.js',
       'https://bk.sytes.net/weather-static/js/bootstrap.min.js',
