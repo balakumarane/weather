@@ -30,7 +30,7 @@
                         {% endif %}
                         <small>{% get_formatted_datetime each_data.created_time %}</small>
                         
-                        <p>{{each_data.message|safe}}</p>                            
+                        <p style="white-space: pre-line">{{each_data.message|safe}}</p>                            
                     </div>
                     <hr>
                 {% endfor %}    
