@@ -24,9 +24,9 @@
                 {% for each_data in data|dictsortreversed:"created_time" %}        
                     <div> 
                         {% if each_data.id|first in '9' %}
-                          <h3>Monsoon of Chennai</h3>
+                          <h5>MONSOON OF CHENNAI</h5>
                         {% else %}
-                          <h3>Tamil Nadu Weatherman</h3>
+                          <h5>TAMIL NADU WEATHERMAN</h5>
                         {% endif %}
                         <small>{% get_formatted_datetime each_data.created_time %}</small>
                         
