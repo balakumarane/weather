@@ -8,5 +8,5 @@ django-pwa==1.0.5
 Pillow==6.1.0
 django-minio-storage==0.2.2
 fcm-django==0.2.21
-djangorestframework==3.10.2
+djangorestframework==3.11.2
 django-cors-headers==3.0.2
